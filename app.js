@@ -1,24 +1,21 @@
-const http = require("http");
-const fs = require("fs");
-const port = 3000;
+import react from "react";
+import express from "express";
+import bodyParser from "body-parser";
 
-const server = http.createServer(function (req, res) {
-  res.writeHead(200, { "Content-Type": "text/html" });
-  fs.readFile("index.html", function (error, data) {
-    if (error) {
-      res.writeHead(404);
-      res.write("Error: File not Found");
-    } else {
-      res.write(data);
-    }
-    res.end();
-  });
-});
+import usersRoutes from "./routes/users.js";
 
-server.listen(port, function (error) {
-  if (error) {
-    console.log("Something is wrong with the server", error);
-  } else {
-    console.log("Server is working " + port);
-  }
-});
+const app = express();
+const PORT = 3000;
+
+app.use(bodyParser.json());
+
+app.use("/users", usersRoutes);
+
+app.get("/", (req, res) => res.send("Hello from home page"));
+
+app.listen(PORT, () =>
+  console.log(`Server is running on port: http:localhost:${PORT}`)
+);
+<div>
+  <h1> My first express plus node page</h1>
+</div>;
